@@ -1,0 +1,18 @@
+* strange history expanding on my 'hpt' account
+In the 'hpt' account of my working laptop, the !" will expand to "'
+It is strange. Because other accounts seems have no such behaving.
+http://groups.google.com/group/comp.unix.shell/browse_thread/thread/9df53df840b82a86#
+
+'"
+OK, I got it:
+I see, I see. Thanks!
+It seems that I typed something which begin with "', hmm..., it should
+be "'
+itself. And the !" is the format !STRING which will expand to the most
+recent
+ command starting with STRING:
+
+[hpt@localhost ~]$ "abc"
+bash: abc: command not found
+[hpt@localhost ~]$ echo !"
+[hpt@localhost ~]$ echo "abc"

@@ -1,0 +1,82 @@
+* tip: prepare the field in a format suitable for sorting
+#Quote <<----
+On Saturday 30 May 2009 17:14, Ramesh wrote:
+
+- Hide quoted text -
+- Show quoted text -
+> Hi All!
+
+> I need to prepare the sort command to sort the fields which are
+> delimiter by ';' . I have tried all the sort command pages in sun
+> solaris but I need the following output.
+
+> [shawnee]/home/rjanagam% sort -t';' -k 1,1n -k1,2n -k3,3n -k 4,4n -k
+> 5,5n SMS_SVC_ACTVTN_REPORT_TELESP_20090529_012820.txt
+> PAC LD 15 CSP 15;20090528;DCHELLAM;TELESP;TEST D T;00000000191;F;
+> 00000;1196291304;66;20090605;17,25
+> PAC LD 15 CSP 15;20090528;DCHELLAM;TELESP;TEST D T;00000000191;F;
+> 00000;1196291504;66;20090605;17,25
+> PAC LD 15 CSP 15;20090528;NNAGULAN;TELESP;REGIS ABREU BARBOSA;
+> 21873564856;F;00000;1199513387;78;20090616;17,25
+> PAC LD 15 CSP 15;20090528;NNAGULAN;TELESP;REGIS ABREU BARBOSA;
+> 21873564856;F;00000;1199513892;78;20090616;17,25
+> PAC LD 45 CSP 15;20090528;DCHELLAM;TELESP;TEST D T;00000000191;F;
+> 00000;1196291504;66;20090605;36,00
+> PAC LD 45 CSP 15;20090528;DCHELLAM;TELESP;TEST D T;00000000191;F;
+> 00000;1196291504;66;20090605;36,00
+> PAC LD 45 CSP 15;20090528;NNAGULAN;TELESP;TEST D T;00000000191;F;
+> 00000;1196293904;66;20090605;36,00
+> PAC TORP SMS 100;20090528;rjanagam;TELESP;MARIA APARECIDA P MARTINS;
+> 15914585104;F;BAL0158-001;1140441000;AA;20090604;14,90
+> PAC TORP SMS 15;20090528;DCHELLAM;TELESP;TEST D T;00000000191;F;
+> 00000;1196291504;66;20090605;3,90
+> PAC TORP SMS 15;20090528;rjanagam;TELESP;MARIA APARECIDA P MARTINS;
+> 15914585104;F;BAL0158-001;1140441000;AA;20090604;14,90
+> [shawnee]/home/rjanagam% sort -n
+> SMS_SVC_ACTVTN_REPORT_TELESP_20090529_012820.txt
+> PAC LD 15 CSP 15;20090528;DCHELLAM;TELESP;TEST D T;00000000191;F;
+> 00000;1196291304;66;20090605;17,25
+> PAC LD 15 CSP 15;20090528;DCHELLAM;TELESP;TEST D T;00000000191;F;
+> 00000;1196291504;66;20090605;17,25
+> PAC LD 15 CSP 15;20090528;NNAGULAN;TELESP;REGIS ABREU BARBOSA;
+> 21873564856;F;00000;1199513387;78;20090616;17,25
+> PAC LD 15 CSP 15;20090528;NNAGULAN;TELESP;REGIS ABREU BARBOSA;
+> 21873564856;F;00000;1199513892;78;20090616;17,25
+> PAC LD 45 CSP 15;20090528;DCHELLAM;TELESP;TEST D T;00000000191;F;
+> 00000;1196291504;66;20090605;36,00
+> PAC LD 45 CSP 15;20090528;DCHELLAM;TELESP;TEST D T;00000000191;F;
+> 00000;1196291504;66;20090605;36,00
+> PAC LD 45 CSP 15;20090528;NNAGULAN;TELESP;TEST D T;00000000191;F;
+> 00000;1196293904;66;20090605;36,00
+> PAC TORP SMS 100;20090528;rjanagam;TELESP;MARIA APARECIDA P MARTINS;
+> 15914585104;F;BAL0158-001;1140441000;AA;20090604;14,90
+> PAC TORP SMS 15;20090528;DCHELLAM;TELESP;TEST D T;00000000191;F;
+> 00000;1196291504;66;20090605;3,90
+> PAC TORP SMS 15;20090528;rjanagam;TELESP;MARIA APARECIDA P MARTINS;
+> 15914585104;F;BAL0158-001;1140441000;AA;20090604;14,90
+
+> If you see the first field of last three line, The "PAC TORP SMS 100"
+> row came first since its its compariing the lexically; But I need to
+> "PAC TORP SMS 15" at first; I tried many options but uable to figure
+> out the correct syntax; Please can anybody help...
+
+> I need to sort on both lexically + numerically...
+> PAC TORP SMS 15;..........
+> PAC TORP SMS 100;...........
+
+If you want to sort numerically on the last number of the first field (ie,  
+what's between the first semicolon) you can do this:
+
+awk -F \; '{match($1,/[0-9]+$/)
+            n=substr($1,RSTART, RLENGTH)
+            rest=substr($1,1,RSTART-1)
+            print rest sprintf("%05d;",n)$0}' yourfile |\
+sort |\
+awk '{print substr($0,index($0,";")+1)}'
+
+the idea is to prepend whatever fields you want to sort on, in a format
+suitable for sorting, and then remove them (leaving only the original
+lines) when the sort has been done. 
+
+http://groups.google.com/group/comp.unix.shell/browse_thread/thread/57328f0a358dc632#
+----

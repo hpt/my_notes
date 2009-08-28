@@ -1,0 +1,12 @@
+* zenity doesn't get focus
+https://bugzilla.redhat.com/show_bug.cgi?id=479394
+There is a patch which can solve this problem. But doesn't included into fedora yet
+
+
+
+* a nautilus bug? maybe it is my gnome's configure files problem...
+https://bugzilla.redhat.com/show_bug.cgi?id=497846
+
+
+* my laptop's error message when booting:
+something about local filesystem error  F10. "copy-installed" from a old workstation.

@@ -1,0 +1,9 @@
+* mtime, atime, and ctime
+- ctime: or 'change time'. is the time when changes were made to the file or directory's inode (owner, permissions, etc.). __The ctime is also updated when the contents of a file change.__
+ctime can be showed by 'ls -lc'
+
+- atime:is the time when the data of a file was last accessed. can be showed by 'ls -lu'
+
+- mtime: is the time when the actual contents of a file was last modified. This is the time displayed in a long directoring listing 'ls -l'.
+
+http://www.brandonhutchinson.com/ctime_atime_mtime.html

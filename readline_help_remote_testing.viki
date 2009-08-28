@@ -1,0 +1,25 @@
+I have a method to using readline helping remote testing.
+
+It is very slow when do remote testing. I managed to use
+readline saving some time.
+
+This is applied in those situations:
+-some commands will be inputed twices-
+
+* if there is no rebooting between those two run
+We can save the first input as a macro, just do:
+ctrl-x ( <commands> ctrl-x )
+
+NOTE: in readline, it says if prefix a numeric argument, it will append
+the new input to the old definition. But it will repeat the old define first...
+this is bad ...
+
+* if there will be a rebooting between those two runs:
+We can record those commands into the .inputrc.
+
+#Quote <<----
+first, run those cmmands.
+then, use 'fc -ln|sed -e 's/^[[:space:]]*//' to list out them.
+then, use bind '"\C-xm1": "<copy previous listed commands here, reserve the newline>"'
+then, use bind -s >> ~/.inputrc to save those marcos.
+----

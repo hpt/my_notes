@@ -1,0 +1,144 @@
+* how to set up sendmail use remote SMTP server
+#Quote  <<----
+This tutorial explains how to configure a sendmail server to forward all mails generated from localhost to another SMTP server for sending mails to remote recipients. Also it explains how to rewrite the from address of user@localhost.localdomain to user@example.com.
+
+Example Scenario: You have a production server which is not configured to relay mails externally, but there is a application running in that server which mails its log to the given email address regarding its status and incase of any service failures. since the sendmail runs locally on localhost.localdomain name it tries to forward the mail with root@localhost.localdomain to the remote smtp server, which would get rejected because of the reason that localhost.localdomain resolves to Invalid IP. So in order to overcome that we have to rewrite the from address of root@localhost.localdomain to user@example.com. so that the other smtp server relays the mail from user@example.com to the admin@example.com or whatever address you want to send the service status mail to.
+
+NOTE: Specific parts of this tutorial applies only to Redhat Based Systems, but in general the procedure applies to all sendmail servers.
+
+SMARTHOST IP : 10.1.1.50
+SMTP HOST IP : 10.1.1.10
+Check for Installed RPMS:
+
+First the Sendmail rpms should get installed. By default Sendmail gets installed with the system installation.
+
+Check for installed sendmail rpms:
+
+root@nerdplanet# rpm -q sendmail sendmail-cf
+
+These two packages should list as installed:
+
+sendmail-8.xx
+sendmail-cf-8.xx
+
+If not installed already then install them.
+Install the Rpms
+
+root@nerdplanet# yum install sendmail sendmail-cf
+
+It should install them in your linux system.
+
+Once installed you have to make sure the server is started and starts automatically on reboot.
+
+root@nerdplanet# chkconfig sendmail on 
+
+root@nerdplanet# service sendmail start
+
+Now the server is up and running.
+
+First add the remote server ip address and its domain name to the /etc/hosts
+
+vi /etc/hosts
+
+10.1.1.10    smtp.example.com
+
+You dont have to do the above step if your local dns can resolve the domain name to the ip address of the smtp server which is configured to relay mail.
+Edit the Sendmail configuration file for forwarding mails
+
+vi /etc/mail/sendmail.mc
+
+Forwarding mails to smarthost
+
+dnl # define(`SMART_HOST',`smtp.example.net') 
+
+Find the line which contains the above entry and replace it with your smtp server address.
+
+define(`SMART_HOST',`smtp.example.com')
+
+Then save the file.
+For rewriting the from address of the mails create genericstable file.
+
+vi /etc/mail/genericstable
+
+In the Generics table file enter the following lines:
+
+root     user@example.com
+mohan    mohan@nerdplanet.co.uk
+
+The above lines mean that if any mails sent by root will be masqueraded and appear to come from as user@example.com instead of root@localhost.localdomain and if any mail sent by the user mohan will appear to come from mohan@nerdplanet.co.uk instead of mohan@localhost.localdomain
+
+Then save the file.
+Enabling Features in the sendmail configuration file.
+
+vi /etc/mail/sendmail.mc
+
+Add these lines for enabling features:
+
+FEATURE(masquerade_envelope)dnl
+FEATURE(`genericstable')dnl
+GENERICS_DOMAIN(`localhost.localdomain')dnl
+
+Then run:
+
+make -C /etc/mail
+
+It should compile all the files under the /etc/mail directory and updates the changes.
+
+After that restart the sendmail service.
+
+root@nerdplanet# service sendmail restart
+
+That's it, you have configured sendmail to act as a smarthost.
+Configuring Your SMTP Server To accept mails from Smarthosts:
+
+------------------------------------------------------------------------
+
+NOTE: This procedure is applicable only if the remote live smtp server is a sendmail server, which is true in this scenario. For other SMTP servers refer to their documentation.
+
+Presumptions: The live SMTP server is already using FEATURE ('access_db'..
+
+Edit the access file in the live smtp server to accept mails from the smart host.
+
+vi /etc/mail/access
+
+connect:10.1.1.50     RELAY
+
+cd /etc/mail
+
+Rebuild the Access database file.
+
+/usr/sbin/makemap hash access < access
+
+Restart the sendmail service.
+
+root@smtp# service sendmail restart
+
+That's it; the remote smtp server will accept mails from the smarthost.
+
+Hope This Tutorial is useful to someone. Please leave your comments.
+
+Original Link: This tutorial is also available on http://www.nerdplanet.co.uk.
+
+Cheers!
+
+Mohan.
+
+Copyright © 2007 Mohan
+All Rights Reserved.
+add comment | view as pdf view as pdf | Display a printer-friendly version of this page. print |
+Related Tutorials
+
+    * Set Up Postfix For Relaying Emails Through Another Mailserver
+
+	Please do not use the comment function to ask for help! If you need help, please use our forum.
+Comments will be published after administrator approval.
+I think, that you must use
+Submitted by Mareg (not registered) on Sat, 2009-06-06 11:23.
+
+I must to use also this directive :
+
+ MASQUERADE_DOMAIN(`localhost.localdomain')dnl
+
+ to enable rewriting the from address of the mails.
+reply | view as pdf view as pdf
+----

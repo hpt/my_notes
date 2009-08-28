@@ -1,0 +1,12 @@
+* rhel4
+#Quote <<---
+largesmp
+This package includes a version of the Linux kernel configured to handle
+up to
+64 CPUs on X86-64, 128 CPUs on PPC64 and 512 CPUs on IA-64.
+Install the kernel-largesmp package if your machine has more than 8 CPUs
+on
+x86-64, more than 64 CPUs on PPC64, or more than 64 CPUs on IA-64.
+---
+
+* 

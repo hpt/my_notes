@@ -1,0 +1,24 @@
+* question about /.\%>'s.*\%<'e..
+
+#Quote <<----
+/.\%>'s.*\%<'e..
+----
+
+will match 
+#Quote <<----
+world
+
+IM hello
+
+VIM
+----
+without the empty lines
+
+but 
+#Quote <<----
+\%'s\_.\{-}\%'e
+----
+
+will match this with the empty lines. I don't understand why there is can have 'holes' in a pattern matching?
+Notes: the mark 's' at the 'w' and mark 'e' at the 'o'.
+

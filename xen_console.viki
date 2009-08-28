@@ -1,0 +1,51 @@
+* This is for domain0
+default=0
+timeout=5
+#serial --unit=0 --speed=115200
+serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1
+#terminal --timeout=5 serial console
+terminal --timeout=2 serial console
+title Red Hat Enterprise Linux Server (2.6.18-128.el5xen)
+        root (hd0,0)
+        kernel /xen.gz-2.6.18-128.el5 com1=115200,8n1 console=com1
+        #module /vmlinuz-2.6.18-128.el5xen ro root=/dev/VolGroup00/LogVol00 console=ttyS0,115200 console=xvc0
+        module /vmlinuz-2.6.18-128.el5xen ro root=/dev/VolGroup00/LogVol00 console=xvc0
+        module /initrd-2.6.18-128.el5xen.img
+title Red Hat Enterprise Linux Server (2.6.18-128.el5)
+        root (hd0,0)
+        kernel /vmlinuz-2.6.18-128.el5 ro root=/dev/VolGroup00/LogVol00 console=ttyS0,115200
+        initrd /initrd-2.6.18-128.el5.img
+
+* for HVM guest
+2.5. How to connect to serial console of HVM guest?
+
+It is easy to connect to the serial console of HVM guest. You should:
+
+   1.
+
+      Add "serial = 'pty'" to vm configure file vm.cfg.
+   2.
+
+      Add following lines to /boot/grub/grub.conf of the vm:
+
+      serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1
+      terminal --timeout=10 serial console
+
+      And add kernel parameter: "console=tty0 console=ttyS0,115200n8". This tells linux to print logs on both tty0 and ttyS0. The result like this:
+
+      kernel /boot/vmlinuz-2.6.18-8.el5 ro root=LABEL=/ console=tty0 console=ttyS0,115200n8
+
+   3.
+
+      Add "ttyS0" to /etc/securetty of the vm.
+   4.
+
+      Add the following line to /etc/inittab of the vm:
+
+      co:2345:respawn:/sbin/agetty ttyS0 115200 vt100-nav
+
+   5.
+
+      then execute the following command to start the domain and you'll get the serial console output:
+
+      # xm create -c vm.cfg

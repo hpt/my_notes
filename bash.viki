@@ -1,0 +1,106 @@
+* get the string form "..."
+data:
+#Quote <<---
+WARNING: "src/third_party/WebKit/WebKitLibraries" is no longer part of
+this client.  It is recommended that you manually remove it.
+
+WARNING: "src/third_party/GTM" is no longer part of this client.  It
+is recommended that you manually remove it.
+
+...
+---
+
+methods:
+
+#Quote <<---
+awk -v RS=\" '!(NR%2)'
+
+cut -d\" -sf2 filename
+
+awk -F\" '/"/{print $2}'
+
+awk -F\" '/".*"/{print $2}'
+
+sed -ne 's/.*"\([^"]*\)".*/\1/p' input
+
+awk 'match($0, /"[^"]*"/) { print substr($0, RSTART + 1, RLENGTH - 2); }'
+
+---
+
+http://groups.google.com/group/comp.unix.shell/browse_thread/thread/bc8a8404d945bfa7#
+
+
+* a function for running commands
+I have a function to run commands and check the results:
+#Quote <<----
+run_or_die()
+{
+    echo -n "Try to run '$@'... "
+    eval "$@"
+
+    [[ $? -eq 0 ]] && echo 'OK!' && return
+
+    echo 'Failed!' 
+    clean_up
+    report_result "${TEST}" "FAIL" 0
+    exec 1>&6 2>&7 
+    cat "$OUTPUTFILE"
+    exit -1
+}
+----
+
+and then I find another similar function from here: http://groups.google.com/group/comp.unix.shell/browse_thread/thread/46b7ecaa924554c8
+as this one:
+#Quote <<----
+run_cmd() {
+        cmd=$1
+        shift
+        echo 'Command line: ' "$cmd" ${1+"$@"} # has paramters if $1 being set (null or no-null)
+        "$cmd" ${1+"$@"}
+
+} 
+----
+
+* read: seems always discards the spaces at the end of input, except ...
+
+#Quote <<----
+[hpt@localhost temp]$ read buf <<< "hello,world    ";echo "buf is: '$buf'"
+buf is: 'hello,world'
+[hpt@localhost temp]$ IFS= read buf <<< "hello,world    ";echo "buf is: '$buf'"
+buf is: 'hello,world    '
+[hpt@localhost temp]$ read  <<< "hello,world    ";echo "REPLY is: '$REPLY'"
+REPLY is: 'hello,world    '
+----
+
+* Why is testing x$foo = "x" better than $foo = ""
+#Quote <<----
+Prepeding a dummy safely prevents the values from being mistaken as
+operators.  Otherwise, a few very special values like "=" and "!"
+become a problem in some shells:
+
+[ -n "=" ]      Bourne shell and ksh88 give the = a higher priority
+                and expect a comparison
+
+[ "!" = "x" ]   Bourne shell, ksh88 and some earlier dash (e.g. 0.4.26)
+                expect a negated comparison
+
+BTW, test can become even more fragile, if the seldomly used operator -a
+and the value "=" are used (instead of connecting two separate conditions)
+
+[ -n "=" -a {another condition} ]   breaks in almost all shells,
+                                    one exception is pdksh
+
+
+http://www.in-ulm.de/~mascheck/various/test/
+----
+and 
+#Quote <<----
+You're on the portable and safe side, if you can rewrite -a/-o with &&/||.
+But problems are less likely if you prepend dummies and avoid negation
+(which I forgot at first).
+
+Negation is ambiguous: "! condition -a condition" can be parsed as
+    ( ! condition ) -a condition
+or
+    ! ( condition -a condition ) 
+----

@@ -1,0 +1,48 @@
+<job>
+  <workflow>reserve work flow</workflow>
+  <submitter>phan@redhat.com</submitter>
+  <whiteboard>5.3 x86_64 AMD Opteron SMP</whiteboard>
+  <recipeSet>
+
+    <recipe testrepo='development'  whiteboard='dom0 install of rhel5u3_x86_64'>
+      <distroRequires>ARCH = x86_64</distroRequires>
+      <distroRequires>FAMILY = RedHatEnterpriseLinuxServer5</distroRequires>
+      <distroRequires>NAME = RHEL5-Server-U3</distroRequires>
+      <hostRequires>FAMILY = RedHatEnterpriseLinuxServer5</hostRequires>
+      <hostRequires>ARCH = x86_64</hostRequires>
+      <hostRequires>CPUVENDOR = AuthenticAMDrevF</hostRequires>
+      <hostRequires>VENDOR != SGI</hostRequires>
+      <hostRequires>HVM = 1</hostRequires>
+      <hostRequires>MEMORY >= 4000</hostRequires>
+      <accesskey>gnfZBu</accesskey>
+      <test role='STANDALONE' name='/distribution/install'/>
+      <test role='STANDALONE' name='/virt/va/dom0install'/>
+      <test role='STANDALONE' name='/distribution/virt/install'>
+        <params>
+          <param name='KILLTIMEOVERRIDE' value='59280'/>
+        </params>
+      </test>
+      <test role='STANDALONE' name='/virt/va/update_xen_config'>
+        <params> <param name='TESTARGS' value='rhel4u7_x86_64_hvm:vcpus:8'/>
+        </params>
+      </test>
+      <test role='STANDALONE' name='/distribution/virt/start'/>
+
+      <guestrecipe testrepo='development' guestname='rhel4u7_x86_64_hvm' guestargs=' --file /var/lib/xen/images/rhel4u7_x86_64_hvm.img -s 10 --hvm' whiteboard='hvm install of guest=rhel4u7_x86_64_hvm vcpus=8 memory=1024 container=file installer=nfs'>
+        <distroRequires>ARCH = x86_64</distroRequires>
+        <distroRequires>FAMILY = RedHatEnterpriseLinux4</distroRequires>
+        <distroRequires>NAME = RHEL4-U7</distroRequires>
+        <hostRequires>FAMILY = RedHatEnterpriseLinux4</hostRequires>
+        <hostRequires>ARCH = x86_64</hostRequires>
+        <test role='STANDALONE' name='/distribution/install'/>
+        <test role='STANDALONE' name='/distribution/reservesys'>
+        <params>
+          <param name='RESERVEBY' value='phan@redhat.com'/>
+          <param name='RESERVETIME' value='86400'/>
+        </params>
+        </test>
+      </guestrecipe>
+    </recipe>
+
+  </recipeSet>
+</job>

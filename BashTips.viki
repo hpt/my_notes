@@ -1,0 +1,26 @@
+* command 'less' can be used to "follow"
+#Quote <<----
+If you simply wanted to highlight the search term, rather than filter out non-matching lines, you can use the 'less' program instead of Bash:
+
+   $ less program.log
+
+    * Inside less, start a search with the '/' command (similar to searching in vi).
+    * This should highlight any instances of the search term.
+    * Now put less into "follow" mode, which by default is bound to shift+f.
+    * You should get an unfiltered tail of the specified file, with the search term highlighted. 
+----
+
+* some commands have option for avoiding line-buffer in pipeline
+#Quote <<----
+grep (e.g. GNU version 2.5.1)
+--line-buffered
+
+sed (e.g. GNU version 4.0.6)
+-u,--unbuffered
+
+awk (some GNU versions)
+-W interactive, or use the fflush() function
+
+tcpdump, tethereal
+-l
+----

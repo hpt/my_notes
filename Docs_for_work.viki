@@ -1,0 +1,7 @@
+* Doc for ErrataWorkFlow
+http://wiki.test.redhat.com/ErrataWorkflow/ErrataWorkflowFullDocument
+http://wiki.test.redhat.com/Kernel/Testplans/KernelEUS
+
+questions:
+    . what is a TCP (Test Container Project)?
+      http://wiki.test.redhat.com/BaseOs/Projects/TestContainerProject
