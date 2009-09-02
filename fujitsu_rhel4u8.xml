@@ -1,9 +1,10 @@
+
 <job>
   <workflow>kernel_workflow</workflow>
   <submitter>phan@redhat.com</submitter>
-  <whiteboard>2.6.9-89.0.6.EL, ia64, RHEL4-U8 4.8.z Kernel Regression Testing for the Fujitsu Machine.</whiteboard>
+  <whiteboard>2.6.9-89.0.11.EL, ia64, RHEL4-U8 Kernel Regression Testing for the Fujitsu Machine.</whiteboard>
   <recipeSet>
-    <recipe testrepo='development' whiteboard='kernel 2.6.9-89.0.6.EL'>
+    <recipe testrepo='development' whiteboard='kernel 2.6.9-89.0.11.EL'>
       <installPackage>procmail</installPackage>
       <installPackage>kernel</installPackage>
       <installPackage>gdb</installPackage>
@@ -19,17 +20,10 @@
       <installPackage>postgresql-devel</installPackage>
       <installPackage>postgresql-server</installPackage>
       <installPackage>rsh-server</installPackage>
-      <installPackage>systemtap</installPackage>
-      <installPackage>glibc-devel</installPackage>
-      <installPackage>libgcc</installPackage>
-      <installPackage>kernel-devel</installPackage>
-      <installPackage>libaio-devel</installPackage>
-      <installPackage>libhugetlbfs</installPackage>
-      <installPackage>procps</installPackage>
       <distroRequires>ARCH = ia64</distroRequires>
-      <distroRequires>NAME = RHEL5-Server-U3</distroRequires>
-      <distroRequires>FAMILY = RedHatEnterpriseLinuxServer5</distroRequires>
-      <hostRequires>FAMILY = RedHatEnterpriseLinuxServer5</hostRequires>
+      <distroRequires>NAME = RHEL4-U8</distroRequires>
+      <distroRequires>FAMILY = RedHatEnterpriseLinux4</distroRequires>
+      <hostRequires>FAMILY = RedHatEnterpriseLinux4</hostRequires>
       <hostRequires>HOSTNAME = pq0-0.lab.bos.redhat.com</hostRequires>
       <hostRequires>ARCH = ia64</hostRequires>
       <test role='STANDALONE' name='/distribution/install'/>
@@ -37,7 +31,43 @@
         <params>
           <param name='KERNELARGNAME' value='kernel'/>
           <param name='KERNELARGVARIANT' value='up'/>
-          <param name='KERNELARGVERSION' value='2.6.9-89.0.6.EL'/>
+          <param name='KERNELARGVERSION' value='2.6.9-89.0.11.EL'/>
+        </params>
+      </test>
+      <test role='STANDALONE' name='/kernel/misc/gdb-simple'/>
+      <test role='STANDALONE' name='/kernel/misc/module-load'/>
+      <test role='STANDALONE' name='/kernel/errata/4.8.z'/>
+    </recipe>
+  </recipeSet>
+  <recipeSet>
+    <recipe testrepo='development' whiteboard='kernel 2.6.9-89.0.11.EL largesmp'>
+      <installPackage>procmail</installPackage>
+      <installPackage>kernel</installPackage>
+      <installPackage>gdb</installPackage>
+      <installPackage>coreutils</installPackage>
+      <installPackage>@development-tools</installPackage>
+      <installPackage>kernel-utils</installPackage>
+      <installPackage>perl-DBI</installPackage>
+      <installPackage>perl-DBD-MySQL</installPackage>
+      <installPackage>mysql</installPackage>
+      <installPackage>mysql-devel</installPackage>
+      <installPackage>mysql-server</installPackage>
+      <installPackage>postgresql</installPackage>
+      <installPackage>postgresql-devel</installPackage>
+      <installPackage>postgresql-server</installPackage>
+      <installPackage>rsh-server</installPackage>
+      <distroRequires>ARCH = ia64</distroRequires>
+      <distroRequires>NAME = RHEL4-U8</distroRequires>
+      <distroRequires>FAMILY = RedHatEnterpriseLinux4</distroRequires>
+      <hostRequires>FAMILY = RedHatEnterpriseLinux4</hostRequires>
+      <hostRequires>HOSTNAME = pq0-0.lab.bos.redhat.com</hostRequires>
+      <hostRequires>ARCH = ia64</hostRequires>
+      <test role='STANDALONE' name='/distribution/install'/>
+      <test role='STANDALONE' name='/distribution/kernelinstall'>
+        <params>
+          <param name='KERNELARGNAME' value='kernel'/>
+          <param name='KERNELARGVARIANT' value='largesmp'/>
+          <param name='KERNELARGVERSION' value='2.6.9-89.0.11.EL'/>
         </params>
       </test>
       <test role='STANDALONE' name='/kernel/misc/gdb-simple'/>
@@ -46,4 +76,3 @@
     </recipe>
   </recipeSet>
 </job>
-
