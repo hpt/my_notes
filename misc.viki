@@ -1,0 +1,27 @@
+* using G3 wireless with company wired net together
+Plug in wired network, and dialup, then get this route table:
+
+#Quote <<---
+$ route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+192.200.1.21    0.0.0.0         255.255.255.255 UH    0      0        0 ppp0
+10.66.64.0      0.0.0.0         255.255.254.0   U     1      0        0 eth0
+0.0.0.0         10.66.65.254    0.0.0.0         UG    0      0        0 eth0
+---
+
+sudo route del default gw 10.66.65.254      # delete the default gw
+
+sudo route add -net 10.0.0.0 netmask 255.0.0.0 gw 10.66.65.254  # using company default gw for company network
+
+sudo route add -net 0.0.0.0 netmask 0.0.0.0 dev ppp0  # others go through my G3 wireless
+
+#Quote <<---
+$ route -n
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+192.200.1.21    0.0.0.0         255.255.255.255 UH    0      0        0 ppp0
+10.66.64.0      0.0.0.0         255.255.254.0   U     1      0        0 eth0
+10.0.0.0        10.66.65.254    255.0.0.0       UG    0      0        0 eth0
+0.0.0.0         0.0.0.0         0.0.0.0         U     0      0        0 ppp0
+---
