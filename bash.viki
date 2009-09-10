@@ -1,3 +1,32 @@
+* redrection 
+#Quote <<---
+>> {
+>>   echo | exp file=/dev/fd/3 useri... 3>&1 >&4 |
+>>     gzip | split -n 2047m - exp.dmp.
+
+>> } 4>&1
+
+> Why needs '>&4' and '4>&1' here? What do they do?
+
+4>&1 dupplicates the outer stdout to fd 4, >&4, aka 1>&4
+restores "exp's" stdout to that same resource. So, the overall
+effect is to preserve exp's stdout. Otherwise, anything written
+by "exp" on its stdout would go to the pipe to gzip as well.
+
+If you want to make things tidy, you could do:
+{
+  echo 4>&- | exp file=/dev/fd/3 useri... 3>&1 >&4 4>&- |
+    gzip 4>&- | split -n 2047m - exp.dmp. 4>&-
+
+} 4>&1
+
+To close that fd 4 fall all the commands as none of them use it
+(nor should they use it).
+---
+
+_the 'outer' fd 4, is the same (or duplicate of) the 'inner' fd 4._ I THINK.
+
+
 * get the string form "..."
 data:
 #Quote <<---
