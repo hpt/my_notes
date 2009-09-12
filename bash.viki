@@ -90,6 +90,8 @@ run_cmd() {
 } 
 ----
 
+But the second method cannot run a pipeline!!
+
 * read: seems always discards the spaces at the end of input, except ...
 
 #Quote <<----
