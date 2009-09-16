@@ -1,3 +1,15 @@
+* find out IP address from the MAC address in local net
+** using 'arp-scan'
+#Quote <<----
+[hpt@localhost ~]$ sudo arp-scan --localnet|grep 00:1d:45:20:d5:ff
+10.66.65.254    00:1d:45:20:d5:ff       Cisco Systems
+[hpt@localhost ~]$
+----
+
+** a specil version arping
+http://freshmeat.net/projects/arping
+But I failed to run it on my f11 machine after installing libnet and libpcap. It always 'Segmentation fault'
+
 * using G3 wireless with company wired net together
 Plug in wired network, and dialup, then get this route table:
 
