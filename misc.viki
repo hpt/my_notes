@@ -1,3 +1,15 @@
+* DBus and konsole
+From KDE 4.0, konsole using DBus in place of dcop for scripting.
+ open a new session(tab):
+$ qdbus org.kde.konsole /Konsole org.kde.konsole.Konsole.newSession # will return the session number
+
+ send some texts to the session(tab):
+$ qdbus org.kde.konsole /Sessions/${session_id} org.kde.konsole.Session.sendText "some text"
+
+ rename the session(tab):
+$ qdbus org.kde.konsole /Sessions/${session_id} org.kde.konsole.Session.setTitle 0 "some text" # why there is must be a '0'??
+
+
 * find out IP address from the MAC address in local net
 ** using 'arp-scan'
 #Quote <<----
