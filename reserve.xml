@@ -1,0 +1,240 @@
+<job>
+  <workflow>kernel_workflow</workflow>
+  <submitter>phan@redhat.com</submitter>
+  <whiteboard>2.6.9-89.0.9.EL, x86_64 ia64 s390 s390x ppc, RHEL4-U8</whiteboard>
+  <recipeSet>
+    <recipe testrepo='development' whiteboard='kernel 2.6.9-89.0.9.EL smp'>
+      <installPackage>procmail</installPackage>
+      <installPackage>emacs</installPackage>
+      <installPackage>vim-enhanced</installPackage>
+      <installPackage>unifdef</installPackage>
+      <distroRequires>ARCH = i386</distroRequires>
+      <distroRequires>NAME = RHEL4-U8</distroRequires>
+      <distroRequires>FAMILY = RedHatEnterpriseLinux4</distroRequires>
+      <hostRequires>FAMILY = RedHatEnterpriseLinux4</hostRequires>
+      <hostRequires>ARCH = i386</hostRequires>
+      <hostRequires>ARCH = i386</hostRequires>
+      <hostRequires>CPUVENDOR = GenuineIntel</hostRequires>
+      <hostRequires>ARCH != x86_64</hostRequires>
+      <hostRequires>PROCESSORS > 1</hostRequires>
+      <test role='STANDALONE' name='/distribution/install'/>
+      <test role='STANDALONE' name='/distribution/kernelinstall'>
+        <params>
+          <param name='KERNELARGNAME' value='kernel'/>
+          <param name='KERNELARGVARIANT' value='smp'/>
+          <param name='KERNELARGVERSION' value='2.6.9-89.0.9.EL'/>
+        </params>
+      </test>
+      <test role='STANDALONE' name='/distribution/reservesys'>
+        <params>
+          <param name='RESERVEBY' value='phan@redhat.com'/>
+          <param name='RESERVETIME' value='43200'/>
+        </params>
+      </test>
+    </recipe>
+  </recipeSet>
+  <recipeSet>
+    <recipe testrepo='development' whiteboard='kernel 2.6.9-89.0.9.EL smp'>
+      <installPackage>procmail</installPackage>
+      <installPackage>emacs</installPackage>
+      <installPackage>vim-enhanced</installPackage>
+      <installPackage>unifdef</installPackage>
+      <distroRequires>ARCH = i386</distroRequires>
+      <distroRequires>NAME = RHEL4-U8</distroRequires>
+      <distroRequires>FAMILY = RedHatEnterpriseLinux4</distroRequires>
+      <hostRequires>FAMILY = RedHatEnterpriseLinux4</hostRequires>
+      <hostRequires>ARCH = i386</hostRequires>
+      <hostRequires>ARCH = i386</hostRequires>
+      <hostRequires>CPUVENDOR = AuthenticAMD</hostRequires>
+      <hostRequires>ARCH = x86_64</hostRequires>
+      <hostRequires>PROCESSORS > 1</hostRequires>
+      <test role='STANDALONE' name='/distribution/install'/>
+      <test role='STANDALONE' name='/distribution/kernelinstall'>
+        <params>
+          <param name='KERNELARGNAME' value='kernel'/>
+          <param name='KERNELARGVARIANT' value='smp'/>
+          <param name='KERNELARGVERSION' value='2.6.9-89.0.9.EL'/>
+        </params>
+      </test>
+      <test role='STANDALONE' name='/distribution/reservesys'>
+        <params>
+          <param name='RESERVEBY' value='phan@redhat.com'/>
+          <param name='RESERVETIME' value='43200'/>
+        </params>
+      </test>
+    </recipe>
+  </recipeSet>
+  <recipeSet>
+    <recipe testrepo='development' whiteboard='kernel 2.6.9-89.0.9.EL smp'>
+      <installPackage>procmail</installPackage>
+      <installPackage>emacs</installPackage>
+      <installPackage>vim-enhanced</installPackage>
+      <installPackage>unifdef</installPackage>
+      <distroRequires>ARCH = x86_64</distroRequires>
+      <distroRequires>NAME = RHEL4-U8</distroRequires>
+      <distroRequires>FAMILY = RedHatEnterpriseLinux4</distroRequires>
+      <hostRequires>FAMILY = RedHatEnterpriseLinux4</hostRequires>
+      <hostRequires>ARCH = x86_64</hostRequires>
+      <hostRequires>ARCH = x86_64</hostRequires>
+      <hostRequires>CPUVENDOR = AuthenticAMD</hostRequires>
+      <hostRequires>PROCESSORS > 1</hostRequires>
+      <test role='STANDALONE' name='/distribution/install'/>
+      <test role='STANDALONE' name='/distribution/kernelinstall'>
+        <params>
+          <param name='KERNELARGNAME' value='kernel'/>
+          <param name='KERNELARGVARIANT' value='smp'/>
+          <param name='KERNELARGVERSION' value='2.6.9-89.0.9.EL'/>
+        </params>
+      </test>
+      <test role='STANDALONE' name='/distribution/reservesys'>
+        <params>
+          <param name='RESERVEBY' value='phan@redhat.com'/>
+          <param name='RESERVETIME' value='43200'/>
+        </params>
+      </test>
+    </recipe>
+  </recipeSet>
+  <recipeSet>
+    <recipe testrepo='development' whiteboard='kernel 2.6.9-89.0.9.EL smp'>
+      <installPackage>procmail</installPackage>
+      <installPackage>emacs</installPackage>
+      <installPackage>vim-enhanced</installPackage>
+      <installPackage>unifdef</installPackage>
+      <distroRequires>ARCH = x86_64</distroRequires>
+      <distroRequires>NAME = RHEL4-U8</distroRequires>
+      <distroRequires>FAMILY = RedHatEnterpriseLinux4</distroRequires>
+      <hostRequires>FAMILY = RedHatEnterpriseLinux4</hostRequires>
+      <hostRequires>ARCH = x86_64</hostRequires>
+      <hostRequires>ARCH = x86_64</hostRequires>
+      <hostRequires>ARCH = i386</hostRequires>
+      <hostRequires>PROCESSORS > 1</hostRequires>
+      <hostRequires>CPUVENDOR = GenuineIntel</hostRequires>
+      <test role='STANDALONE' name='/distribution/install'/>
+      <test role='STANDALONE' name='/distribution/kernelinstall'>
+        <params>
+          <param name='KERNELARGNAME' value='kernel'/>
+          <param name='KERNELARGVARIANT' value='smp'/>
+          <param name='KERNELARGVERSION' value='2.6.9-89.0.9.EL'/>
+        </params>
+      </test>
+      <test role='STANDALONE' name='/distribution/reservesys'>
+        <params>
+          <param name='RESERVEBY' value='phan@redhat.com'/>
+          <param name='RESERVETIME' value='43200'/>
+        </params>
+      </test>
+    </recipe>
+  </recipeSet>
+  <recipeSet>
+    <recipe testrepo='development' whiteboard='kernel 2.6.9-89.0.9.EL'>
+      <installPackage>procmail</installPackage>
+      <installPackage>emacs</installPackage>
+      <installPackage>vim-enhanced</installPackage>
+      <installPackage>unifdef</installPackage>
+      <distroRequires>ARCH = ia64</distroRequires>
+      <distroRequires>NAME = RHEL4-U8</distroRequires>
+      <distroRequires>FAMILY = RedHatEnterpriseLinux4</distroRequires>
+      <hostRequires>FAMILY = RedHatEnterpriseLinux4</hostRequires>
+      <hostRequires>ARCH = ia64</hostRequires>
+      <hostRequires>ARCH = ia64</hostRequires>
+      <test role='STANDALONE' name='/distribution/install'/>
+      <test role='STANDALONE' name='/distribution/kernelinstall'>
+        <params>
+          <param name='KERNELARGNAME' value='kernel'/>
+          <param name='KERNELARGVARIANT' value='up'/>
+          <param name='KERNELARGVERSION' value='2.6.9-89.0.9.EL'/>
+        </params>
+      </test>
+      <test role='STANDALONE' name='/distribution/reservesys'>
+        <params>
+          <param name='RESERVEBY' value='phan@redhat.com'/>
+          <param name='RESERVETIME' value='43200'/>
+        </params>
+      </test>
+    </recipe>
+  </recipeSet>
+  <recipeSet>
+    <recipe testrepo='development' whiteboard='kernel 2.6.9-89.0.9.EL'>
+      <installPackage>procmail</installPackage>
+      <installPackage>emacs</installPackage>
+      <installPackage>vim-enhanced</installPackage>
+      <installPackage>unifdef</installPackage>
+      <distroRequires>ARCH = s390</distroRequires>
+      <distroRequires>NAME = RHEL4-U8</distroRequires>
+      <distroRequires>FAMILY = RedHatEnterpriseLinux4</distroRequires>
+      <hostRequires>FAMILY = RedHatEnterpriseLinux4</hostRequires>
+      <hostRequires>ARCH = s390</hostRequires>
+      <hostRequires>ARCH = s390</hostRequires>
+      <test role='STANDALONE' name='/distribution/install'/>
+      <test role='STANDALONE' name='/distribution/kernelinstall'>
+        <params>
+          <param name='KERNELARGNAME' value='kernel'/>
+          <param name='KERNELARGVARIANT' value='up'/>
+          <param name='KERNELARGVERSION' value='2.6.9-89.0.9.EL'/>
+        </params>
+      </test>
+      <test role='STANDALONE' name='/distribution/reservesys'>
+        <params>
+          <param name='RESERVEBY' value='phan@redhat.com'/>
+          <param name='RESERVETIME' value='43200'/>
+        </params>
+      </test>
+    </recipe>
+  </recipeSet>
+  <recipeSet>
+    <recipe testrepo='development' whiteboard='kernel 2.6.9-89.0.9.EL'>
+      <installPackage>procmail</installPackage>
+      <installPackage>emacs</installPackage>
+      <installPackage>vim-enhanced</installPackage>
+      <installPackage>unifdef</installPackage>
+      <distroRequires>ARCH = s390x</distroRequires>
+      <distroRequires>NAME = RHEL4-U8</distroRequires>
+      <distroRequires>FAMILY = RedHatEnterpriseLinux4</distroRequires>
+      <hostRequires>FAMILY = RedHatEnterpriseLinux4</hostRequires>
+      <hostRequires>ARCH = s390x</hostRequires>
+      <hostRequires>ARCH = s390x</hostRequires>
+      <test role='STANDALONE' name='/distribution/install'/>
+      <test role='STANDALONE' name='/distribution/kernelinstall'>
+        <params>
+          <param name='KERNELARGNAME' value='kernel'/>
+          <param name='KERNELARGVARIANT' value='up'/>
+          <param name='KERNELARGVERSION' value='2.6.9-89.0.9.EL'/>
+        </params>
+      </test>
+      <test role='STANDALONE' name='/distribution/reservesys'>
+        <params>
+          <param name='RESERVEBY' value='phan@redhat.com'/>
+          <param name='RESERVETIME' value='43200'/>
+        </params>
+      </test>
+    </recipe>
+  </recipeSet>
+  <recipeSet>
+    <recipe testrepo='development' whiteboard='kernel 2.6.9-89.0.9.EL'>
+      <installPackage>procmail</installPackage>
+      <installPackage>emacs</installPackage>
+      <installPackage>vim-enhanced</installPackage>
+      <installPackage>unifdef</installPackage>
+      <distroRequires>ARCH = ppc</distroRequires>
+      <distroRequires>NAME = RHEL4-U8</distroRequires>
+      <distroRequires>FAMILY = RedHatEnterpriseLinux4</distroRequires>
+      <hostRequires>FAMILY = RedHatEnterpriseLinux4</hostRequires>
+      <hostRequires>ARCH = ppc</hostRequires>
+      <hostRequires>ARCH = ppc</hostRequires>
+      <test role='STANDALONE' name='/distribution/install'/>
+      <test role='STANDALONE' name='/distribution/kernelinstall'>
+        <params>
+          <param name='KERNELARGNAME' value='kernel'/>
+          <param name='KERNELARGVARIANT' value='up'/>
+          <param name='KERNELARGVERSION' value='2.6.9-89.0.9.EL'/>
+        </params>
+      </test>
+      <test role='STANDALONE' name='/distribution/reservesys'>
+        <params>
+          <param name='RESERVEBY' value='phan@redhat.com'/>
+          <param name='RESERVETIME' value='43200'/>
+        </params>
+      </test>
+    </recipe>
+  </recipeSet>
+</job>
