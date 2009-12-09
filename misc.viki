@@ -1,44 +1,3 @@
-* Get the third line based on a patterned line
-
-Hongyi Zhao wrote:
-
-> Hi all,
-> 
-> I want to obtain the third line before each matched line.  For
-> example:
-> 
-> ...
-> _here_comes_line_a
-> _here_comes_line_b
-> _here_comes_line_c
-> _here_comes_the_matched_line
-> ...
-> _here_comes_line_d
-> _here_comes_line_e
-> _here_comes_line_f
-> _here_comes_the_matched_line
-> ...
-> 
-> I want to based on the regex matched lines to the third line before
-> each matched line, i.e., the  _here_comes_line_a and
-> _here_comes_line_d in the above example.  Any hints on this issue?
-
-** method 1
-awk '/matched_line/{print s1}{s1=s2;s2=s3;s3=$0}'
-
-** method 2
-awk '/matched/{print a[NR-3]}{a[NR]=$0}' file # this one will unnecessarily memorize the whole file...
-
-** method 3
-awk '/matched/{print a[NR%3]}{a[NR%3]=$0}'
-
-** method 4
-$ tac inputfile | awk '/matched_line/{i=4}!--i' | tac
-
-** method 5
-txr 
-
-** 
 * DBus and konsole
 From KDE 4.0, konsole using DBus in place of dcop for scripting.
  open a new session(tab):
@@ -90,3 +49,15 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 10.0.0.0        10.66.65.254    255.0.0.0       UG    0      0        0 eth0
 0.0.0.0         0.0.0.0         0.0.0.0         U     0      0        0 ppp0
 ---
+
+* 让应用程序不再改变系声音大小(sound volume)
+现在有一个"flat volumes"功能，可以让每个应用程序改变系统的声音大小。为禁掉这一功能，可
+生成一个用户配制文件：
+#Quote <<---
+[hpt@localhost ~]$ cat /home/hpt/.pulse/daemon.conf
+flat-volumes = no
+[hpt@localhost ~]$
+---
+相应的系统配制文件是: /etc/pulse/daemon.conf
+
+来源：https://www.redhat.com/archives/fedora-list/2009-September/msg00540.html
