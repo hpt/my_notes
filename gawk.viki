@@ -10,8 +10,16 @@ The operations on 'ret' is based on the definition come from the wait(2) manual:
 
 #Quote <<---
 /usr/include/bits/waitstatus.h:#define  __WEXITSTATUS(status)   (((status) & 0xff00) >> 8)
+
 ---
 
+* get the exit status of getline in the pipeline
+Use this syntax:
+
+#Quote <<---
+ret = (c | getline result)
+
+---
 
 * CSV parsing 
 CSV file has a specification: http://en.wikipedia.org/wiki/Comma-separated_values
