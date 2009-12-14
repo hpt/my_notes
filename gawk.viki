@@ -1,3 +1,18 @@
+* get the exit status of cmds in the pipeline
+From the gawk manual, using close() we can get the exit status of the cmd of pipeline:
+#Quote <<---
+$ awk 'BEGIN{c="ls blah";c | getline result;ret=close(c);ret=and(512,0xff00);ret=rshift(ret,8);print "result is "ret}'
+ls: cannot access blah: No such file or directory
+result is 2
+---
+
+The operations on 'ret' is based on the definition come from the wait(2) manual:
+
+#Quote <<---
+/usr/include/bits/waitstatus.h:#define  __WEXITSTATUS(status)   (((status) & 0xff00) >> 8)
+---
+
+
 * CSV parsing 
 CSV file has a specification: http://en.wikipedia.org/wiki/Comma-separated_values
 but the cvs file I have encountered just use a sub-set of this specification.
