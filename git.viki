@@ -1,0 +1,12 @@
+* How can I search Git branches for a file or directory?
+git log will find it for you:
+
+% git log --all -- somefile
+
+commit 55d2069a092e07c56a6b4d321509ba7620664c63
+Author: Dustin Sallings <dustin@spy.net>
+Date:   Tue Dec 16 14:16:22 2008 -0800
+
+    added some file
+    % git branch --contains 55d2069
+      otherbranch
