@@ -1,3 +1,11 @@
+* git reset note
+  --mixed : reset index but not working tree to specified commit
+  --soft  : don't touch index and working tree, only move HEAD to specified commit
+  --hard  : reset both index and working tree to specified commit
+  --merge : reset index and modified files in index to specified commit (don't touch other traced modified files)
+  --keep  : reset index and no local modified files to specified commit, keep the local modified files, but
+            if a file that is different between the current commit and the given commit has local changes, reset is aborted.
+
 * How can I search Git branches for a file or directory?
 ** git log will find it for you:
 
